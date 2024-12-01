@@ -10,10 +10,13 @@ const Home = () => {
   const [filter, setFilter] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Combina el filtro de nombre con los filtros adicionales
+  useEffect(() => {
+    console.log('Filters or search term updated:', { filter, searchTerm });
+  }, [filter, searchTerm]);
+
   const combinedFilters = {
     ...filter,
-    name: searchTerm ? searchTerm : undefined, // solo aplica el filtro de nombre si hay un término de búsqueda
+    name: searchTerm ? searchTerm : undefined,
   };
 
   const { data, loading, error } = useQuery(GET_CHARACTERS, {
