@@ -14,7 +14,7 @@ Este proyecto fue realizado con **React v18.0**, **GraphQL,**  y **tailwindcss,*
 > - Agregar los personajes tanto a favoritos como quitarlos de favoritos
 
 
-> Cuando el usuario hace clic en el botón "View Details", se abre un modal con información adicional del personaje. Este modal puede cerrarse haciendo clic en el botón "Close". Además, el enlace "View Profile" redirige a una página de detalles usando `React Router`.
+> Cuando el usuario hace clic en el botón "View Details", se abre un modal con información adicional del personaje. Este modal puede cerrarse haciendo clic en el botón "Close". Además, las el diseño responsive que realzo en las cards fue desarrollado bajo las propiedades  de `flex` el enlace "View Profile" redirige a una página de detalles usando `React Router`.
 
 
 
