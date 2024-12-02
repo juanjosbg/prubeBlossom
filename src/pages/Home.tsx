@@ -52,6 +52,18 @@ const Home = () => {
     setShowFavorites(!showFavorites);
   };
 
+  const removeFavorite = (character: any) => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    const updatedFavorites = favorites.filter(
+      (fav: any) => fav.name !== character.name
+    );
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    setCharacters((prev) =>
+      prev.filter((char: any) => char.name !== character.name)
+    );
+  };
+
+
   useEffect(() => {
     if (data) {
       setCharacters(data?.characters.results);
@@ -60,6 +72,7 @@ const Home = () => {
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
+
 
   return (
     <section>
@@ -119,24 +132,34 @@ const Home = () => {
                   return favorites.some((fav: any) => fav.name === character.name);
                 })
                 .map((character: any) => (
-                  <div key={character.id} className="flex max-w-xs p-2 border rounded-lg shadow hover:shadow-lg">
-                    <img src={character.image} alt={character.name} className="rounded-md w-40 h-20 object-cover mx-auto" />
-                    <div className="flex flex-col w-full">
-                      <h2 className="sm:text-sm md:text-md font-bold text-center mt-2">{character.name}</h2>
-                      <p className="sm:text-xs md:text-md text-center">{character.species}</p>
-                      <div className="flex justify-center mt-2">
-                        <button
-                          onClick={() => openModal()}
-                          className="bg-blue-500 text-white px-4 py-1 rounded-full text-xs w-36"
-                        >
-                          View Details
-                        </button>
-                      </div>
+                  <div
+                    key={character.id}
+                    className="flex items-center p-2 rounded-lg shadow hover:shadow-lg bg-purple-50"
+                  >
+                    <img src={character.image} alt={character.name} className="rounded-full w-12 h-12 object-cover border-2 border-white"/>
+                    <div className="ml-4 flex-1">
+                      <h2 className="text-sm font-semibold text-gray-900">{character.name}</h2>
+                      <p className="text-xs text-gray-600">{character.species}</p>
                     </div>
+                    {/* Botón de favoritos */}
+                    <button
+                      onClick={() => removeFavorite(character)}
+                      className="text-green-500 hover:text-green-600"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        className="w-6 h-6"
+                      >
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                      </svg>
+                    </button>
                   </div>
                 ))}
             </div>
           </div>
+
           <hr />
           <div className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8 mt-3 h-auto mb-4">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
