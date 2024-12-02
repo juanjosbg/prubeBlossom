@@ -5,7 +5,7 @@ interface SearchFiltersProps {
   setFilter: (callback: (prev: any) => any) => void;
   toggleFavorites: () => void;
   sortCharacters: (order: "asc" | "desc") => void;
-  closeModal: () => void; // Esto está correctamente tipado, asegurándonos que es una función sin parámetros que no devuelve nada
+  closeModal: () => void;
 }
 
 const SearchFilters = ({

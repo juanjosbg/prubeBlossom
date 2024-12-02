@@ -156,6 +156,7 @@ const Home = () => {
                 setFilter={setFilter}
                 sortCharacters={sortCharacters}
                 toggleFavorites={toggleFavorites}
+                closeModal={closeModal}
               />
             </Dialog.Panel>
           </div>
