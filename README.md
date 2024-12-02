@@ -4,6 +4,7 @@
 Este proyecto fue realizado con **React v18.0**, **GraphQL,**  y **tailwindcss,** el cual muestra mediante unas tarjetas los personajes de rick y morty con su respectiva imagen, nombre y especie. Además, permite visualizar detalles adicionales de cada personaje en un modal que se muestra al hacer clic en el botón. 
 
 > [!NOTE] 
+>
 > ## Descripción
 > La aplicación presenta una interfaz donde los personajes están representados como tarjetas. Cada tarjeta incluye los siguientes elementos:
 > - Imagen del personaje.
@@ -12,11 +13,9 @@ Este proyecto fue realizado con **React v18.0**, **GraphQL,**  y **tailwindcss,*
 > - Un botón para abrir un modal con más detalles sobre el personaje (por ejemplo, estado).
 > - Un botón para cerrar el modal de los detalles del personaje.
 > - Agregar los personajes tanto a favoritos como quitarlos de favoritos
+>
 
-
-> Cuando el usuario hace clic en el botón "View Details", se abre un modal con información adicional del personaje. Este modal puede cerrarse haciendo clic en el botón "Close". Además, las el diseño responsive que realzo en las cards fue desarrollado bajo las propiedades  de `flex` el enlace "View Profile" redirige a una página de detalles usando `React Router`.
-
-
+--------------------------------
 
 > [!TIP]
 > ## Tecnologías utilizadas
@@ -26,19 +25,18 @@ Este proyecto fue realizado con **React v18.0**, **GraphQL,**  y **tailwindcss,*
 > - **Tailwind CSS:** Framework de CSS para estilizar la interfaz de usuario de forma rápida y eficiente.
 > - **React State (useState):** Para gestionar el estado local del modal.
 > - **JSX:** Para escribir componentes en formato similar a HTML en React.
+>
 
+--------------------------------
 
 > [!NOTE]  
 > ## Características
 > - **Visualización de personajes:** Cada personaje se muestra como una tarjeta con su imagen, nombre y especie.
 > - **Modal interactivo:** Al hacer clic en "View Details", el modal muestra información adicional del personaje, como su estado.
 > - **Enlace de redirección:** El enlace "View Profile" redirige a una página con el perfil completo del personaje.
+>
 
-
-> [!IMPORTANT] 
-> ## Instalación y ejecución
-> Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local.
-
+--------------------------------
 
 > [!IMPORTANT] 
 > ### Requisitos previos
@@ -46,12 +44,25 @@ Este proyecto fue realizado con **React v18.0**, **GraphQL,**  y **tailwindcss,*
 > - **Node.js** (v14 o superior)
 > - **npm** (gestor de paquetes de Node.js)
 > 
+> ## Instalación y ejecución
+> Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local.
+>
 
+```bash
+# Clona el repositorio:
+git clone <URL_DEL_REPOSITORIO>
+cd <Ubicacion de tu proyecto>
 
-> ### 1. Clonar el repositorio
-Primero, clona este repositorio en tu máquina local usando el siguiente comando:
-> 
-> ```bash
-> git clone https://github.com/tu-usuario/character-card-modal-routing.git
-> ```
+# Instala las dependencias:
+npm install
 
+# Inicia el servidor de desarrollo
+npm run dev
+```
+
+> [!IMPORTANT]  
+> 1. Crea el archivo .env, (este contiene las variables necesarias para las conexiones API y GraphQL)
+> 2. En windows abre una terminal y ejecuta el siguiente comando: `copy .env.example .env`
+> 3. En linux abre una terminal y ejecuta el siguiente comando:  `copy .env.example .env`
+> 4. Despues de haber echo eso, esto copiará el archivo `.env.example`, solo renombra ese archivo a `.env`.
+> 5. Asegúrate de revisar y completar las variables necesarias dentro del archivo `.env`.
