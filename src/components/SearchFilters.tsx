@@ -1,24 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { HeartIcon } from '@heroicons/react/24/outline';
 
 interface SearchFiltersProps {
   setFilter: (callback: (prev: any) => any) => void;
-  toggleFavorites: () => void; // Nueva función para mostrar favoritos
-  sortCharacters: (order: "asc" | "desc") => void; // Nueva función para ordenar
+  toggleFavorites: () => void;
+  sortCharacters: (order: "asc" | "desc") => void;
+  closeModal: () => void; // Esto está correctamente tipado, asegurándonos que es una función sin parámetros que no devuelve nada
 }
 
 const SearchFilters = ({
   setFilter,
   toggleFavorites,
   sortCharacters,
+  closeModal,
 }: SearchFiltersProps) => {
-  const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilter((prev: any) => ({
+  const [tempFilters, setTempFilters] = useState({
+    status: "",
+    species: "",
+    gender: "",
+  });
+
+  const handleTempFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setTempFilters((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }));
   };
 
+  const applyFilters = () => {
+    setFilter((prev: any) => ({
+      ...prev,
+      ...tempFilters,
+    }));
+    closeModal(); // Cierra el modal después de aplicar los filtros (opcional)
+  };
+
+  // Maneja la ordenación por nombre
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     sortCharacters(e.target.value as "asc" | "desc");
   };
@@ -26,12 +44,17 @@ const SearchFilters = ({
   return (
     <section>
       <div className="flex flex-wrap justify-between">
-        <div className="cont-filter-1">
+        {/* Filtros */}
+        <div className="cont-filter-1 mt-3">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Filters
+          </label>
           <div className="flex flex-wrap gap-4 mb-4">
             <select
               name="status"
-              onChange={handleFilterChange}
-              className="rounded-full border px-2 py-2 w-full sm:w-auto hover:bg-blue-400 hover:text-white"
+              value={tempFilters.status}
+              onChange={handleTempFilterChange}
+              className="rounded-md border px-2 py-2 w-full sm:w-auto hover:bg-blue-400 hover:text-white"
             >
               <option value="">Status</option>
               <option value="alive">Alive</option>
@@ -41,8 +64,9 @@ const SearchFilters = ({
 
             <select
               name="species"
-              onChange={handleFilterChange}
-              className="rounded-full border px-2 py-2 w-full sm:w-auto hover:bg-blue-400 hover:text-white"
+              value={tempFilters.species}
+              onChange={handleTempFilterChange}
+              className="rounded-md border px-2 py-2 w-full sm:w-auto hover:bg-blue-400 hover:text-white"
             >
               <option value="">Species</option>
               <option value="human">Human</option>
@@ -51,8 +75,9 @@ const SearchFilters = ({
 
             <select
               name="gender"
-              onChange={handleFilterChange}
-              className="rounded-full border px-2 py-2 w-full sm:w-auto hover:bg-blue-400 hover:text-white"
+              value={tempFilters.gender}
+              onChange={handleTempFilterChange}
+              className="rounded-md border px-2 py-2 w-full sm:w-auto hover:bg-blue-400 hover:text-white"
             >
               <option value="">Gender</option>
               <option value="male">Male</option>
@@ -63,11 +88,15 @@ const SearchFilters = ({
           </div>
         </div>
 
+        {/* Botones de acción */}
         <div className="cont-filter-2">
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Actions
+          </label>
           <div className="flex flex-wrap gap-4 mb-4">
             <select
               onChange={handleSortChange}
-              className="rounded-full border px-2 py-2 w-full sm:w-auto hover:bg-blue-400 hover:text-white"
+              className="items-center gap-2 px-4 py-2 border rounded-md focus:ring-4 sm:w-auto hover:bg-blue-400 hover:text-white"
             >
               <option value="">Sort by Name</option>
               <option value="asc">A-Z</option>
@@ -76,14 +105,21 @@ const SearchFilters = ({
 
             <button
               onClick={toggleFavorites}
-              className="flex gap-2 rounded-full border px-4 py-2 w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold"
-            > 
-            <HeartIcon className="w-6 h-6"/>
-               Favorites
+              className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white font-bold rounded-md hover:bg-red-600 focus:ring-4 focus:ring-red-300"
+            >
+              <HeartIcon className="w-5 h-5" />
+              Favorites
             </button>
           </div>
         </div>
       </div>
+
+      <button
+        onClick={applyFilters}
+        className="mt-4 bg-[#bdbdbd] text-white px-4 py-2 rounded-md hover:bg-[#8054C7] w-full"
+      >
+        Apply Filters
+      </button>
     </section>
   );
 };

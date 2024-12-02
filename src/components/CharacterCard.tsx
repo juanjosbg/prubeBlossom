@@ -7,6 +7,7 @@ interface Character {
   name: string;
   species: string;
   status: string;
+  occupation?: string;
 }
 
 interface CharacterCardProps {

@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+    --primary100: #EEE3FF;
+    --primary600: #8054C7;
+    --primary700: #5A3696;
+    --secondary600: #63D838;
+};
