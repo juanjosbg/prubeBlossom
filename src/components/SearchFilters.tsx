@@ -1,4 +1,5 @@
 import React from "react";
+import { HeartIcon } from '@heroicons/react/24/outline';
 
 interface SearchFiltersProps {
   setFilter: (callback: (prev: any) => any) => void;
@@ -75,9 +76,10 @@ const SearchFilters = ({
 
             <button
               onClick={toggleFavorites}
-              className="rounded-full border px-4 py-2 w-full sm:w-auto bg-yellow-500 hover:bg-yellow-600 text-white font-bold"
-            >
-              Show Favorites
+              className="flex gap-2 rounded-full border px-4 py-2 w-full sm:w-auto bg-red-500 hover:bg-red-600 text-white font-bold"
+            > 
+            <HeartIcon className="w-6 h-6"/>
+               Favorites
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 # API RICK AND MORTY - BY JUANJOS
 ### Character Card with Modal and Routing
 
-Este proyecto esta echo en React el cual muestra mediante unas tarjetas los personajes de rick y morty con su respectiva imagen, nombre y especie. Además, permite visualizar detalles adicionales de cada personaje en un modal que se muestra al hacer clic en el botón. 
+Este proyecto fue realizado con **React v18.0**, **GraphQL,**  y **tailwindcss,** el cual muestra mediante unas tarjetas los personajes de rick y morty con su respectiva imagen, nombre y especie. Además, permite visualizar detalles adicionales de cada personaje en un modal que se muestra al hacer clic en el botón. 
 
 > [!NOTE] 
 > ## Descripción
@@ -10,11 +10,11 @@ Este proyecto esta echo en React el cual muestra mediante unas tarjetas los pers
 > - Nombre del personaje.
 > - Especie del personaje.
 > - Un botón para abrir un modal con más detalles sobre el personaje (por ejemplo, estado).
-> - Un enlace para acceder a una página de detalles del personaje, donde se pueden ver más datos.
+> - Un botón para cerrar el modal de los detalles del personaje.
+> - Agregar los personajes tanto a favoritos como quitarlos de favoritos
 
 
-
-> Cuando el usuario hace clic en el botón "View Details", se abre un modal con información adicional del personaje. Este modal puede cerrarse haciendo clic en el botón "Close". Además, el enlace "View Profile" redirige a una página de detalles usando `React Router`.
+> Cuando el usuario hace clic en el botón "View Details", se abre un modal con información adicional del personaje. Este modal puede cerrarse haciendo clic en el botón "Close". Además, las el diseño responsive que realzo en las cards fue desarrollado bajo las propiedades  de `flex` el enlace "View Profile" redirige a una página de detalles usando `React Router`.
 
 
 
