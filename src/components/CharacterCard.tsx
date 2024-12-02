@@ -1,4 +1,7 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import Modal from "./Modal";
+import { HeartIcon } from '@heroicons/react/24/outline';
+
 interface Character {
   image: string;
   name: string;
@@ -6,67 +9,63 @@ interface Character {
   status: string;
 }
 
-interface ModalProps {
-  showModal: boolean;
-  closeModal: () => void;
-  character: Character;
-}
-
 interface CharacterCardProps {
   character: Character;
 }
 
-const Modal = ({ showModal, closeModal, character }: ModalProps) => {
-  if (!showModal) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-4 rounded-lg w-96">
-        <img
-          src={character.image}
-          alt={character.name}
-          className="rounded-md w-full mb-4"
-        />
-        <h2 className="sm:text-xl md:text-2xl font-bold uppercase mb-2 text-[#3057d8]">
-          {character.name}
-        </h2>
-        <p>
-          <span className="font-bold text-[#20398d] md:text-2md">Species:</span>{" "}
-          {character.species}
-        </p>
-        <p>
-          <span className="font-bold text-[#20398d] md:text-2md">Status:</span>{" "}
-          {character.status}
-        </p>
-        <button
-          onClick={closeModal}
-          className="mt-4 border hover:bg-red-600 bg-red-500 px-8 py-2 rounded-full uppercase text-white font-bold"
-        >
-          Close
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const CharacterCard = ({ character }: CharacterCardProps) => {
+const CharacterCard: React.FC<CharacterCardProps> = ({ character }) => {
   const [showModal, setShowModal] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+    setIsFavorite(favorites.some((fav: Character) => fav.name === character.name));
+  }, [character.name]);
 
   const openModal = () => setShowModal(true);
   const closeModal = () => setShowModal(false);
 
+  const toggleFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+    if (isFavorite) {
+      const updatedFavorites = favorites.filter(
+        (fav: Character) => fav.name !== character.name
+      );
+      localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+    } else {
+      favorites.push(character);
+      localStorage.setItem("favorites", JSON.stringify(favorites));
+    }
+
+    setIsFavorite(!isFavorite);
+  };
+
   return (
     <div className="border rounded-lg p-4 shadow hover:shadow-lg">
-      <img src={character.image} alt={character.name} className="rounded-md w-full"/>
+      <img src={character.image} alt={character.name} className="rounded-md w-full" />
       <h2 className="text-lg font-bold text-center uppercase mt-5">{character.name}</h2>
       <p className="text-center">{character.species}</p>
 
-      <div className="flex justify-center gap-4 mt-4">
+      <div className="flex justify-center gap-2 mt-4">
         <button
           onClick={openModal}
-          className="border hover:bg-green-500 bg-green-600 px-8 py-2 rounded-full uppercase text-white font-bold w-96"
+          className="border hover:bg-green-500 bg-green-600 px-4 py-2 rounded-full uppercase text-white font-bold w-72 md:text-sm"
         >
           View Details
+        </button>
+
+        <button
+          onClick={toggleFavorite}
+          className={`px-4 py-2 rounded-full uppercase font-bold w-14 md:text-sm hover:border 
+    ${isFavorite
+              ? "bg-red-500 hover:bg-red-600 text-white md:text-md"
+              : " text-black md:text-md"
+            }`}
+        >
+          <HeartIcon
+            className={`w-6 h-6 ${isFavorite ? "text-white" : "text-black"}`}
+          />
         </button>
       </div>
 

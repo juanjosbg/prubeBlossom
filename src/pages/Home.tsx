@@ -9,6 +9,8 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 const Home = () => {
   const [filter, setFilter] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
+  const [showFavorites, setShowFavorites] = useState(false);
+  const [characters, setCharacters] = useState<any[]>([]);
 
   useEffect(() => {
     console.log('Filters or search term updated:', { filter, searchTerm });
@@ -27,6 +29,31 @@ const Home = () => {
     setSearchTerm(e.target.value);
   };
 
+  const sortCharacters = (order: 'asc' | 'desc') => {
+    const sorted = [...data?.characters.results].sort((a, b) => {
+      if (order === 'asc') return a.name.localeCompare(b.name);
+      if (order === 'desc') return b.name.localeCompare(a.name);
+      return 0;
+    });
+    setCharacters(sorted);
+  };
+
+  const toggleFavorites = () => {
+    if (!showFavorites) {
+      const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+      setCharacters(favorites);
+    } else {
+      setCharacters(data?.characters.results);
+    }
+    setShowFavorites(!showFavorites);
+  };
+
+  useEffect(() => {
+    if (data) {
+      setCharacters(data?.characters.results);
+    }
+  }, [data]);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -38,7 +65,8 @@ const Home = () => {
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
                 <div className="shrink-0 px-4">
-                  <img src="/images/Rick-And-Morty-Emblem.png"
+                  <img
+                    src="/images/Rick-And-Morty-Emblem.png"
                     alt="Logo"
                     width={100}
                     height={100}
@@ -74,9 +102,13 @@ const Home = () => {
 
         <main>
           <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <SearchFilters setFilter={setFilter} />
+            <SearchFilters 
+              setFilter={setFilter} 
+              sortCharacters={sortCharacters}
+              toggleFavorites={toggleFavorites}
+            />
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {data.characters.results.map((character: any) => (
+              {characters.map((character: any) => (
                 <CharacterCard key={character.id} character={character} />
               ))}
             </div>
