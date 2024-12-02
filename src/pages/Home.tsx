@@ -11,7 +11,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [showFavorites, setShowFavorites] = useState(false);
   const [characters, setCharacters] = useState<any[]>([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Nuevo estado para el modal
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -108,7 +108,6 @@ const Home = () => {
             </form>
           </div>
           <hr />
-          
           <div className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8 mt-3 h-auto mb-4">
             <label className="block text-sm font-semibold text-gray-700 mb-2">
               Starred Characters
@@ -137,6 +136,17 @@ const Home = () => {
                   </div>
                 ))}
             </div>
+          </div>
+          <hr />
+          <div className="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8 mt-3 h-auto mb-4">
+            <label className="block text-sm font-semibold text-gray-700 mb-2">
+              Starred Characters
+            </label>
+            <p className="text-sm text-gray-500 mb-4">
+              {characters.length === 0
+                ? 'No characters found.'
+                : `${characters.length} character${characters.length > 1 ? 's' : ''} found`}
+            </p>
           </div>
           <hr />
         </aside>

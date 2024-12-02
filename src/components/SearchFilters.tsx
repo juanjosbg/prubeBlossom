@@ -33,10 +33,9 @@ const SearchFilters = ({
       ...prev,
       ...tempFilters,
     }));
-    closeModal(); // Cierra el modal después de aplicar los filtros (opcional)
+    closeModal();
   };
 
-  // Maneja la ordenación por nombre
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     sortCharacters(e.target.value as "asc" | "desc");
   };
